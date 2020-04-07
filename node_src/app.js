@@ -2,6 +2,7 @@
 const express = require('express')
 const axios = require('axios')
 const app = express()
+let GetPokemon = require('./modeles/Getpokemon.js')
 
 let connect = require("./connection.js")
 let config = require("./config.js")
@@ -16,7 +17,19 @@ app.engine("html", mustacheExpress())
 
 
 app.get('/', function (req, res) {
-  res.send('Hello World!')
+  let pokemon1 = req.query.pokemonName1;
+  let pokemon2 = req.query.pokemonName2;
+
+  
+  let promise1 = GetPokemon(pokemon1);
+  let promise2 = GetPokemon(pokemon2);
+
+
+  Promise.all([promise1, promise2]).then((results)=>{
+    console.log(results);
+  })
+
+  //voir awaitasynx!!
 
 })
 
@@ -52,8 +65,9 @@ app.get('/pokemonInfo', function (req, res) {
       let pokemonHP = infoPokemon.stats[5].base_stat
       let pokemonATK = infoPokemon.stats[4].base_stat
       //res.json(pokemonHP);
-      let pokemonStat = [pokemonName, pokemonHP, pokemonATK]; 
-      console.log('Pokemon n°1 : ' + pokemonStat);
+      pokemonStat1 = [pokemonName, pokemonHP, pokemonATK]; 
+      console.log('Pokemon n°1 : ' + pokemonStat1);
+      return pokemonStat1;
     })
     .then(axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon2)
       .then((response) => {
@@ -68,10 +82,14 @@ app.get('/pokemonInfo', function (req, res) {
         let pokemonHP = infoPokemon.stats[5].base_stat
         let pokemonATK = infoPokemon.stats[4].base_stat
         //res.json(pokemonHP);
-        let pokemonStat = [pokemonName, pokemonHP, pokemonATK];
-        console.log('Pokemon n°2 : ' + pokemonStat);
+        pokemonStat2 = [pokemonName, pokemonHP, pokemonATK];
+        console.log('Pokemon n°2 : ' + pokemonStat2);
+        return pokemonStat2;
       })
     )
+    .then((pokemonStat1, pokemonStat2) => {
+      res.send('Pokemon1 : ' + pokemonStat1 + ' vs Pokemon2 : ' + pokemonStat2);
+    })
 })
 
 app.get("/hello", (req, res) => {
