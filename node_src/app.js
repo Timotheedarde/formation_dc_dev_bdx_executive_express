@@ -1,13 +1,14 @@
 
-const express = require('express')
-const axios = require('axios')
-const app = express()
-let GetPokemon = require('./modeles/Getpokemon.js')
+const express = require('express');
+const axios = require('axios');
+const app = express();
+let GetPokemon = require('./modeles/GetPokemon.js');
+let FightPokemon = require('./modeles/FightPokemon.js');
 
-let connect = require("./connection.js")
-let config = require("./config.js")
+let connect = require("./connection.js");
+let config = require("./config.js");
 
-let mustacheExpress = require('mustache-express')
+let mustacheExpress = require('mustache-express');
 
 app.engine("html", mustacheExpress())
 
@@ -20,17 +21,13 @@ app.get('/', async (req, res) => {
   let pokemon1 = req.query.pokemonName1;
   let pokemon2 = req.query.pokemonName2;
 
-  let promise1 = await GetPokemon(pokemon1);
-  let promise2 = await GetPokemon(pokemon2);
-  let results = [promise1, promise2];
-  console.log(results);
-  res.send(results);
-
-  // Promise.all([promise1, promise2]).then((results)=>{
-  //   console.log(results);
-  //   res.send(results);
-  // })
-  //voir awaitasynx!!
+  let Adversaire1 = await GetPokemon(pokemon1);
+  let Adversaire2 = await GetPokemon(pokemon2);
+  //let listAdversaire = [Adversaire1, Adversaire2];
+  //console.log(listAdversaire);
+  let vainqueur = FightPokemon(Adversaire1, Adversaire2);
+  console.log(vainqueur.nom,"est vainqueur");
+  res.send('Le vainqueur est : ' + vainqueur.nom);
 })
 
 app.get('/calendrier', function (req, res) {
