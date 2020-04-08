@@ -16,21 +16,21 @@ app.engine("html", mustacheExpress())
   app.use(express.static(__dirname + '/public'));
 
 
-app.get('/', function (req, res) {
+app.get('/', async (req, res) => {
   let pokemon1 = req.query.pokemonName1;
   let pokemon2 = req.query.pokemonName2;
 
-  
-  let promise1 = GetPokemon(pokemon1);
-  let promise2 = GetPokemon(pokemon2);
+  let promise1 = await GetPokemon(pokemon1);
+  let promise2 = await GetPokemon(pokemon2);
+  let results = [promise1, promise2];
+  console.log(results);
+  res.send(results);
 
-
-  Promise.all([promise1, promise2]).then((results)=>{
-    console.log(results);
-  })
-
+  // Promise.all([promise1, promise2]).then((results)=>{
+  //   console.log(results);
+  //   res.send(results);
+  // })
   //voir awaitasynx!!
-
 })
 
 app.get('/calendrier', function (req, res) {
