@@ -3,7 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 let GetPokemon = require('./modeles/GetPokemon.js');
-let FightPokemon = require('./modeles/FightPokemon.js');
+let Combat = require('./modeles/Combat.js');
 
 let connect = require("./connection.js");
 let config = require("./config.js");
@@ -25,7 +25,8 @@ app.get('/', async (req, res) => {
   let Adversaire2 = await GetPokemon(pokemon2);
   //let listAdversaire = [Adversaire1, Adversaire2];
   //console.log(listAdversaire);
-  let vainqueur = FightPokemon(Adversaire1, Adversaire2);
+  let combat = new Combat(Adversaire1,Adversaire2);
+  let vainqueur = combat.FightPokemon();
   console.log(vainqueur.nom,"est vainqueur");
   res.send('Le vainqueur est : ' + vainqueur.nom);
 })

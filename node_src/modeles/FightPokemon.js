@@ -1,7 +1,6 @@
 
 let FightPokemon = (Adversaire1,Adversaire2) =>{
-    //console.log(Adversaire1.nom);
-    //console.log(Adversaire2.nom);
+    console.log(Adversaire1.nom,"va affronter",Adversaire2.nom);
 
 
 
@@ -18,7 +17,6 @@ let FightPokemon = (Adversaire1,Adversaire2) =>{
         second = Adversaire1;
     }
     console.log(premier.nom,"attaque en premier");
-    console.log(second.nom,"attaque en second");
 
     // Combat
     let cptr = 1; //compteur de tour
