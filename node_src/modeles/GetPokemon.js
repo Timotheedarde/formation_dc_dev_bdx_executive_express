@@ -7,7 +7,6 @@ let GetPokemon = (pokemonName)=>{
             // handle success
             //console.log(response.data);
             let infoPokemon = response.data;
-            //res.json(infoPokemon);
             return infoPokemon;
         })
         .catch((error) => {
@@ -19,10 +18,9 @@ let GetPokemon = (pokemonName)=>{
             let pokemonName = infoPokemon.name;
             let pokemonHP = infoPokemon.stats[5].base_stat
             let pokemonATK = infoPokemon.stats[4].base_stat
-            //res.json(pokemonHP);
-            pokemonStat1 = [pokemonName, pokemonHP, pokemonATK];
-            console.log('Pokemon n°1 : ' + pokemonStat1);
-            return pokemonStat1;
+            pokemonStat = [pokemonName, pokemonHP, pokemonATK];
+            //console.log(pokemonStat);
+            return pokemonStat;
         })
 }
 

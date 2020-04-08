@@ -87,9 +87,6 @@ app.get('/pokemonInfo', function (req, res) {
         return pokemonStat2;
       })
     )
-    .then((pokemonStat1, pokemonStat2) => {
-      res.send('Pokemon1 : ' + pokemonStat1 + ' vs Pokemon2 : ' + pokemonStat2);
-    })
 })
 
 app.get("/hello", (req, res) => {
