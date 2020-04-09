@@ -3,6 +3,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 let GetPokemon = require('./modeles/GetPokemon.js');
+let GetTypePokemon = require('./modeles/GetTypePokemon.js');
 let Combat = require('./modeles/Combat.js');
 
 let connect = require("./connection.js");
@@ -39,52 +40,12 @@ app.get('/calendrier', function (req, res) {
   res.send('Bonjour '+ req.query.prenom +' nous sommes le ' + date + ', en plein confinement!')
 })
 
-app.get('/pokemonInfo', function (req, res) {
-  // declare la variable qui contient le nom de pokemon passé en parametre de requete
-  let pokemon = req.query.pokemonName1;
-  let pokemon2 = req.query.pokemonName2;
-
-  // methode appel axios
-  axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon)
-    .then((response) =>{
-      // handle success
-      //console.log(response.data);
-      let infoPokemon = response.data;
-      //res.json(infoPokemon);
-      return infoPokemon;
-    })
-    .catch((error) => {
-      // handle error
-      console.log(error);
-    })
-    // recuperer HP
-    .then((infoPokemon)=>{
-      let pokemonName = infoPokemon.name;
-      let pokemonHP = infoPokemon.stats[5].base_stat
-      let pokemonATK = infoPokemon.stats[4].base_stat
-      //res.json(pokemonHP);
-      pokemonStat1 = [pokemonName, pokemonHP, pokemonATK]; 
-      console.log('Pokemon n°1 : ' + pokemonStat1);
-      return pokemonStat1;
-    })
-    .then(axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemon2)
-      .then((response) => {
-        // handle success
-        //console.log(response.data);
-        let infoPokemon = response.data;
-        //res.json(infoPokemon);
-        return infoPokemon;
-      })
-      .then((infoPokemon) => {
-        let pokemonName = infoPokemon.name;
-        let pokemonHP = infoPokemon.stats[5].base_stat
-        let pokemonATK = infoPokemon.stats[4].base_stat
-        //res.json(pokemonHP);
-        pokemonStat2 = [pokemonName, pokemonHP, pokemonATK];
-        console.log('Pokemon n°2 : ' + pokemonStat2);
-        return pokemonStat2;
-      })
-    )
+app.get('/pokemonInfo', async (req, res)=> {
+  let monPokemon = req.query.pokemonName;
+  let pokemonObject = await GetPokemon(monPokemon);
+  let PokemonType = await GetTypePokemon(pokemonObject.type);
+  // console.log(PokemonType);
+  // res.json(PokemonType);
 })
 
 app.get("/hello", (req, res) => {

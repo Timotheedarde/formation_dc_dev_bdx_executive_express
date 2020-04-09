@@ -16,7 +16,7 @@ let GetPokemon = (pokemonName)=>{
         // recuperer HP
         .then((infoPokemon) => {
             let pokemonName = infoPokemon.name;
-            let pokemonType = infoPokemon.types[0].type.name;
+            let pokemonType = infoPokemon.types[0].type.url;
             let pokemonVIT = infoPokemon.stats[0].base_stat;
             let pokemonHP = infoPokemon.stats[5].base_stat;
             let pokemonATK = infoPokemon.stats[4].base_stat;
