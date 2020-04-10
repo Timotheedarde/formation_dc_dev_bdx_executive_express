@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 let GetPokemon = require('./modeles/GetPokemon.js');
-let GetTypePokemon = require('./modeles/GetTypePokemon.js');
 let Combat = require('./modeles/Combat.js');
 
 let connect = require("./connection.js");
@@ -32,8 +31,7 @@ app.get('/', async function (req, res) {
 app.get('/pokemonInfo', async (req, res) => {
   let monPokemon = req.query.pokemonName;
   let pokemonObject = await GetPokemon(monPokemon);
-  let PokemonTypeRelations = await GetTypePokemon(pokemonObject.type);
-  console.log(PokemonTypeRelations);
+  console.log(pokemonObject);
 })
 
 app.get('/calendrier', function (req, res) {
