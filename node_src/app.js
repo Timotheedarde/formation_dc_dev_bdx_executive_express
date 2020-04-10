@@ -20,9 +20,10 @@ app.get('/', async function (req, res) {
   let pokemon1 = req.query.pokemonName1.toLowerCase();
   let pokemon2 = req.query.pokemonName2.toLowerCase();
 
-  let combattant1 = await Pokemon.getPokemon(pokemon1);
-  let combattant2 = await Pokemon.getPokemon(pokemon2);
-  let combat = new Combat(combattant1, combattant2);
+  let combattant1 =  Pokemon.getPokemon(pokemon1);
+  let combattant2 =  Pokemon.getPokemon(pokemon2);
+  let combattants = await Promise.all([combattant1,combattant2]);
+  let combat = new Combat(combattants[0], combattants[1]);
   let vainqueur = combat.FightPokemon();
   console.log(vainqueur.nom, "est vainqueur");
   res.send('Le vainqueur est : ' + vainqueur.nom);
