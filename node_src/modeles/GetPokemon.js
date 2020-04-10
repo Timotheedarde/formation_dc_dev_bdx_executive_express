@@ -23,7 +23,7 @@ let GetPokemon = (pokemonName)=>{
             let pokemonHP = infoPokemon.stats[5].base_stat;
             let pokemonATK = infoPokemon.stats[4].base_stat;
             let pokemonDEF = infoPokemon.stats[3].base_stat;
-            let PokemonTypeRelations = await GetTypePokemon(pokemonTypeURL);
+            let PokemonTypeRelations = await GetTypePokemon(pokemonTypeURL); // GetTypePokemon renvoi un objet avec les relations entre types
             return new Pokemon(pokemonName, pokemonTypeURL, pokemonTypeName, PokemonTypeRelations, pokemonVIT, pokemonHP, pokemonATK, pokemonDEF);
         })
 }

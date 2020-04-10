@@ -3,7 +3,6 @@ class Combat{
         this.pokemon1 = _pokemon1;
         this.pokemon2 = _pokemon2;
     }
-
     
     FightPokemon(){
         console.log(this.pokemon1.nom, "va affronter", this.pokemon2.nom);
@@ -21,6 +20,11 @@ class Combat{
             second = this.pokemon1;
         }
         console.log(premier.nom, "attaque en premier");
+
+        //determine les relations en fonction du type
+
+
+
 
         // Combat
         let cptr = 1; //compteur de tour

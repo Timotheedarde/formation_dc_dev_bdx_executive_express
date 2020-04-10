@@ -20,9 +20,9 @@ app.get('/', async function (req, res) {
   let pokemon1 = req.query.pokemonName1;
   let pokemon2 = req.query.pokemonName2;
 
-  let Joueur1 = await GetPokemon(pokemon1);
-  let Joueur2 = await GetPokemon(pokemon2);
-  let combat = new Combat(Joueur1, Joueur2);
+  let combattant1 = await GetPokemon(pokemon1);
+  let combattant2 = await GetPokemon(pokemon2);
+  let combat = new Combat(combattant1, combattant2);
   let vainqueur = combat.FightPokemon();
   console.log(vainqueur.nom, "est vainqueur");
   res.send('Le vainqueur est : ' + vainqueur.nom);
@@ -32,6 +32,7 @@ app.get('/pokemonInfo', async (req, res) => {
   let monPokemon = req.query.pokemonName;
   let pokemonObject = await GetPokemon(monPokemon);
   console.log(pokemonObject);
+  res.send(pokemonObject);
 })
 
 app.get('/calendrier', function (req, res) {

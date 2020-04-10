@@ -9,8 +9,6 @@ class Pokemon{
         this.attaque = _attaque;
         this.defense = _defense;
     }
-
-
 }
 
 module.exports = Pokemon;
