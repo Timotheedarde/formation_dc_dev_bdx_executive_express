@@ -1,8 +1,8 @@
 
 const express = require('express');
 const app = express();
-let GetPokemon = require('./modeles/GetPokemon.js');
 let Combat = require('./modeles/Combat.js');
+let Pokemon = require('./modeles/Pokemon.js');
 
 let connect = require("./connection.js");
 let config = require("./config.js");
@@ -17,11 +17,11 @@ app.engine("html", mustacheExpress())
 
 
 app.get('/', async function (req, res) {
-  let pokemon1 = req.query.pokemonName1;
-  let pokemon2 = req.query.pokemonName2;
+  let pokemon1 = req.query.pokemonName1.toLowerCase();
+  let pokemon2 = req.query.pokemonName2.toLowerCase();
 
-  let combattant1 = await GetPokemon(pokemon1);
-  let combattant2 = await GetPokemon(pokemon2);
+  let combattant1 = await Pokemon.getPokemon(pokemon1);
+  let combattant2 = await Pokemon.getPokemon(pokemon2);
   let combat = new Combat(combattant1, combattant2);
   let vainqueur = combat.FightPokemon();
   console.log(vainqueur.nom, "est vainqueur");
@@ -30,7 +30,7 @@ app.get('/', async function (req, res) {
 
 app.get('/pokemonInfo', async (req, res) => {
   let monPokemon = req.query.pokemonName;
-  let pokemonObject = await GetPokemon(monPokemon);
+  let pokemonObject = await Pokemon.getPokemon(monPokemon);
   console.log(pokemonObject);
   res.send(pokemonObject);
 })
