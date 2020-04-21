@@ -33,6 +33,7 @@ app.get('/pokemonInfo', async (req, res) => {
   let monPokemon = req.query.pokemonName;
   let pokemonObject = await Pokemon.getPokemon(monPokemon);
   console.log(pokemonObject);
+  //console.log(pokemonObject.typeRelations.doubleDamageFrom);
   res.send(pokemonObject);
 })
 
